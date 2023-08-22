@@ -8,11 +8,10 @@ class BaseAPIView(APIView):
 
 
 class FilteredAPIView(BaseAPIView):
-    """filtered API view when we want filtering via query params and using `django-filter` on querysets"""
+    """filtered API view when we want filtering
+    via query params and using `django-filter` on querysets"""
 
-    def filtered_queryset(
-        self, query_params, queryset=None, raise_exception=False, **kwargs
-    ):
+    def filtered_queryset(self, query_params, queryset=None, raise_exception=False, **kwargs):
         filterset = self.filterset_class(query_params, queryset, **kwargs)
         if raise_exception and not filterset.is_valid():
             raise ValidationError({gettext_lazy("filterset errors"): filterset.errors})
