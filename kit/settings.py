@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+import os
 from pathlib import Path
 
 from .dotenv import new_dotenv
@@ -29,7 +30,7 @@ SECRET_KEY = dotenv.secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -42,9 +43,15 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "whitenoise.runserver_nostatic",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "rest_framework.authtoken",
+    "django_filters",
+    "corsheaders",
+    "userprofile",
 ]
 
 MIDDLEWARE = [
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
@@ -135,3 +142,26 @@ STORAGES = {
 }
 
 STATIC_ROOT = "static"
+
+MEDIA_ROOT = "media"
+
+USERPROFILE_AVATAR_DIR = os.path.join(MEDIA_ROOT, "userprofile/avatar/")
+USERPROFILE_AVATAR_MAX_SIZE = 1 * 1024 * 1024
+USERPROFILE_AVATAR_ALLOWED_EX = [
+    ".png",
+    ".jpeg",
+    ".jpg",
+]
+
+
+REST_FRAMEWORK = {
+    "EXCEPTION_HANDLER": "common.exception_handlers.unified_exception_handler",
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.NamespaceVersioning",
+}
+PAGE_DEFAULT_LIMIT = 10
+PAGE_MAX_LIMIT = 50
+
+CORS_ALLOW_ALL_ORIGINS = True

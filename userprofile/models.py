@@ -23,7 +23,7 @@ class UserProfile(models.Model):
         blank=True,
         null=True,
         validators=[
-            v.FileSizeValidator(settings.CUSTOMER_AVATAR_MAX_SIZE),
-            v.FileExtensionValidator(settings.CUSTOMER_AVATAR_ALLOWED_EX),
+            v.FileSizeValidator(settings.USERPROFILE_AVATAR_MAX_SIZE),
+            v.FileExtensionValidator(settings.USERPROFILE_AVATAR_ALLOWED_EX),
         ],
     )

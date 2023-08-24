@@ -1,5 +1,6 @@
 from collections import OrderedDict
 
+from django.conf import settings
 from rest_framework.pagination import LimitOffsetPagination as _LimitOffsetPagination
 from rest_framework.response import Response
 
@@ -19,8 +20,8 @@ def get_paginated_response(*, pagination_class, serializer_class, queryset, requ
 
 
 class LimitOffsetPagination(_LimitOffsetPagination):
-    default_limit = 10
-    max_limit = 50
+    default_limit = settings.PAGE_DEFAULT_LIMIT
+    max_limit = settings.PAGE_MAX_LIMIT
 
     def get_paginated_data(self, data):
         return OrderedDict(
