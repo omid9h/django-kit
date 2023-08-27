@@ -1,5 +1,6 @@
 from django.utils.translation import gettext_lazy
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.response import Response
 from rest_framework.serializers import ValidationError
 from rest_framework.settings import api_settings
 from rest_framework.views import APIView
@@ -25,3 +26,10 @@ class FilteredAPIView(BaseAPIView):
 class CreateToken(ObtainAuthToken):
     serializer_class = AuthTokenSerializer
     renderer_classes = api_settings.DEFAULT_RENDERER_CLASSES
+
+
+class Index(BaseAPIView):
+    """simple index/home view"""
+
+    def get(self, _):
+        return Response(data={"message": "index"})

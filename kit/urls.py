@@ -19,9 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path, re_path
 
-from kit.views import CreateToken
+from kit.views import CreateToken, Index
 
 urlpatterns = [
+    path("", Index.as_view(), name="index"),
     path("admin/", admin.site.urls),
     re_path(r"^token/?$", CreateToken.as_view(), name="token"),
     path("me/", include("userprofile.urls", namespace="me")),
