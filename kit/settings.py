@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "django_filters",
     "corsheaders",
+    "kit",
     "userprofile",
 ]
 
@@ -55,8 +56,8 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
-    "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
+    "django.middleware.common.CommonMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
@@ -135,7 +136,12 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+AUTH_USER_MODEL = "kit.User"
+
 STORAGES = {
+    "default": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
@@ -143,7 +149,7 @@ STORAGES = {
 
 STATIC_ROOT = "static"
 
-MEDIA_ROOT = "media"
+MEDIA_ROOT = "media"  # it resides inside static directory
 
 USERPROFILE_AVATAR_DIR = os.path.join(MEDIA_ROOT, "userprofile/avatar/")
 USERPROFILE_AVATAR_MAX_SIZE = 1 * 1024 * 1024
@@ -155,7 +161,7 @@ USERPROFILE_AVATAR_ALLOWED_EX = [
 
 
 REST_FRAMEWORK = {
-    "EXCEPTION_HANDLER": "common.exception_handlers.unified_exception_handler",
+    "EXCEPTION_HANDLER": "kit.exceptions.unified_exception_handler",
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
     ],
@@ -165,3 +171,5 @@ PAGE_DEFAULT_LIMIT = 10
 PAGE_MAX_LIMIT = 50
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+APPEND_SLASH = True

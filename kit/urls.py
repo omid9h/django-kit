@@ -14,9 +14,17 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path, re_path
+
+from kit.views import CreateToken
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-]
+    re_path(r"^token/?$", CreateToken.as_view(), name="token"),
+    path("me/", include("userprofile.urls", namespace="me")),
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+# urlpatterns = format_suffix_patterns(urlpatterns)
