@@ -9,6 +9,9 @@ class Author(BaseModel):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
     bio = models.TextField(null=True, blank=True)
 
+    def __str__(self) -> str:
+        return self.user.email
+
 
 class Post(BaseModel):
     author = models.ForeignKey(Author, on_delete=models.CASCADE, related_name="author_posts")
@@ -21,6 +24,9 @@ class Post(BaseModel):
             models.Index(fields=["content"]),
         ]
 
+    def __str__(self) -> str:
+        return f"{self.title} - {self.author.user.email}"
+
 
 class Comment(BaseModel):
     user = models.ForeignKey(
@@ -30,3 +36,6 @@ class Comment(BaseModel):
     )
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="post_comments")
     content = models.TextField(gettext_lazy("content"), null=False, blank=False)
+
+    def __str__(self) -> str:
+        return f"{self.content[:20]}... on: {self.post.title} by: {self.user.email}"
