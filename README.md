@@ -10,7 +10,7 @@ python -m venv .venv
 # activating venv (linux)
 source .venv/bin/activate
 # you need poetry: https://python-poetry.org/
-poetry install --dev
+poetry install
 # get pre-commit hooked
 pre-commit install
 # intial run (just for test)

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "corsheaders",
     "kit",
     "userprofile",
+    "blog",
 ]
 
 MIDDLEWARE = [
@@ -87,10 +88,21 @@ WSGI_APPLICATION = "kit.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     },
+# }
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "HOST": dotenv.db_host,
+        "NAME": dotenv.db_name,
+        "USER": dotenv.db_user,
+        "PASSWORD": dotenv.db_pass,
+        "DISABLE_SERVER_SIDE_CURSORS": dotenv.disable_server_side_cursors,
     },
 }
 
