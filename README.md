@@ -1,5 +1,5 @@
 ## Get Started
-pre-commit
+init the project
 ```bash
 # clone the repo
 git clone https://github.com/omid9h/django-kit.git
@@ -17,8 +17,15 @@ pre-commit install
 pre-commit run -a
 # you're good to go
 ```
+populating blog data and test its endpoint
+```
+python manage.py generate_fake_blog_data
+```
+and then after runserver this is post_list endpoint:
+
+```<ip>:<port>/blog/?limit=10&offset=0&title=<term>&content=<term>```
 
 ## TODO
+- postgresql - done using connection string to a running dockerized postgres (for now)
 - dockerizing
-- postgresql
 - elastic stack
