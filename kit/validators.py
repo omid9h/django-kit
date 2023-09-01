@@ -34,7 +34,4 @@ class FileExtensionValidator:
             return value
 
     def __eq__(self, __o: object) -> bool:
-        return (
-            isinstance(__o, FileExtensionValidator)
-            and self.valid_extensions == __o.valid_extensions
-        )
+        return isinstance(__o, FileExtensionValidator) and self.valid_extensions == __o.valid_extensions

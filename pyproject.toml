@@ -26,6 +26,7 @@ flake8 = "^6.1.0"
 pre-commit = "^3.3.3"
 autoflake = "^2.2.0"
 django-debug-toolbar = "^4.2.0"
+faker = "^19.3.1"
 
 [build-system]
 requires = ["poetry-core"]
@@ -34,7 +35,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 # override black's default line-length
-line-length = 99
+line-length = 120
 exclude = '(\.eggs|\.git|\.hg|\.mypy_cache|\.nox|\.tox|\.venv|_build|buck-out|build|dist)'
 
 [tool.isort]
