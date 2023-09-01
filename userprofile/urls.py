@@ -1,6 +1,6 @@
 from django.urls import path
 
-from userprofile import views as v
+from . import views as v
 
 app_name = "userprofile"
 

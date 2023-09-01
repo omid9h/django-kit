@@ -7,6 +7,6 @@ class UserprofileConfig(AppConfig):
     name = "userprofile"
 
     def ready(self):
-        from userprofile.di import di_config
+        from .di import di_config
 
         inject.configure_once(di_config)

@@ -26,6 +26,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     re_path(r"^token/?$", CreateToken.as_view(), name="token"),
     path("me/", include("userprofile.urls", namespace="me")),
+    path("blog/", include("blog.urls", namespace="blog")),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 # urlpatterns = format_suffix_patterns(urlpatterns)

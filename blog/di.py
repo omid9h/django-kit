@@ -6,4 +6,4 @@ __all__ = ["di_config"]
 
 
 def di_config(binder: Binder) -> None:
-    binder.bind(s.ProfileService, s.ProfileService())
+    binder.bind(s.BlogPostService, s.BlogPostService())
