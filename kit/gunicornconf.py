@@ -1,3 +1,4 @@
+# use command: `gunicorn -c kit/gunicornconf.py`
 import os
 from pathlib import Path
 
