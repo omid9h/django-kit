@@ -1,7 +1,6 @@
-import logging
-
 import inject
-from django.conf import settings
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from rest_framework.permissions import AllowAny
 
 from blog.filtersets import PostFilter
@@ -11,9 +10,8 @@ from kit.views import FilteredAPIView
 from . import serializers as z
 from . import services as s
 
-project_logger = logging.getLogger(settings.PROJECT_LOGGER)
 
-
+@method_decorator(cache_page(60), name="dispatch")
 class PostsList(FilteredAPIView):
     """show filterable posts list"""
 
@@ -23,8 +21,6 @@ class PostsList(FilteredAPIView):
     service: s.BlogPostService = inject.attr(s.BlogPostService)
 
     def get(self, request):
-        # just for testing logging
-        project_logger.info("posts_list request: %r", request)
         return get_paginated_response(
             pagination_class=LimitOffsetPagination,
             serializer_class=z.PostsListSerializer,

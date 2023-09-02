@@ -1,3 +1,6 @@
+import logging
+
+from django.conf import settings
 from django.utils.translation import gettext_lazy
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.response import Response
@@ -6,6 +9,8 @@ from rest_framework.settings import api_settings
 from rest_framework.views import APIView
 
 from kit.serializers import AuthTokenSerializer
+
+project_logger = logging.getLogger(settings.PROJECT_LOGGER)
 
 
 class BaseAPIView(APIView):
@@ -31,5 +36,7 @@ class CreateToken(ObtainAuthToken):
 class Index(BaseAPIView):
     """simple index/home view"""
 
-    def get(self, _):
+    def get(self, request):
+        # just for testing logging
+        project_logger.info("index request: %r", request)
         return Response(data={"message": "index"})

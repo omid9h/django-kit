@@ -54,6 +54,9 @@ INSTALLED_APPS = [
 
 
 MIDDLEWARE = [
+    # TODO: `django.middleware.cache` is for whole site cache.
+    # study more about it.
+    # "django.middleware.cache.UpdateCacheMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -63,6 +66,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    # "django.middleware.cache.FetchFromCacheMiddleware",
 ]
 
 # django-debug-toolbar settings
@@ -241,6 +245,17 @@ LOGGING = {
             "handlers": ["file"],
             "level": "INFO",
             "propagate": False,
+        },
+    },
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
         },
     },
 }
