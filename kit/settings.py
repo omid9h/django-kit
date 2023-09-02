@@ -28,7 +28,7 @@ dotenv = new_dotenv()
 SECRET_KEY = dotenv.secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = dotenv.debug_mode
 
 ALLOWED_HOSTS = ["*"]
 
@@ -194,3 +194,53 @@ PAGE_MAX_LIMIT = 50
 CORS_ALLOW_ALL_ORIGINS = True
 
 APPEND_SLASH = True
+
+PROJECT_LOGGER = "project_logger"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "standard": {"format": "%(asctime)s [%(levelname)s] : %(message)s"},
+    },
+    "handlers": {
+        "file": {
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "filename": os.path.join(BASE_DIR, "log", f"{PROJECT_LOGGER}.log"),
+            "level": "INFO",
+            "formatter": "standard",
+            "when": "midnight",  # this specifies the interval
+            "interval": 1,  # defaults to 1, only necessary for other values
+            "backupCount": 60,  # how many backup file to keep, 60 days
+            "encoding": "utf8",
+        },
+        # TODO: find a way to rotate access and error log files
+        # "access_file": {
+        #     "class": "logging.handlers.TimedRotatingFileHandler",
+        #     "filename": os.path.join(BASE_DIR, "log", "access.log"),
+        #     "level": "INFO",
+        #     "formatter": "standard",
+        #     "when": "midnight",  # this specifies the interval
+        #     "interval": 1,  # defaults to 1, only necessary for other values
+        #     "backupCount": 60,  # how many backup file to keep, 60 days
+        #     "encoding": "utf8",
+        # },
+        # "error_file": {
+        #     "class": "logging.handlers.TimedRotatingFileHandler",
+        #     "filename": os.path.join(BASE_DIR, "log", "error.log"),
+        #     "level": "INFO",
+        #     "formatter": "standard",
+        #     "when": "midnight",  # this specifies the interval
+        #     "interval": 1,  # defaults to 1, only necessary for other values
+        #     "backupCount": 60,  # how many backup file to keep, 60 days
+        #     "encoding": "utf8",
+        # },
+    },
+    "loggers": {
+        PROJECT_LOGGER: {
+            "handlers": ["file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}

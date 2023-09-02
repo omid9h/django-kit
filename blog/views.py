@@ -1,4 +1,7 @@
+import logging
+
 import inject
+from django.conf import settings
 from rest_framework.permissions import AllowAny
 
 from blog.filtersets import PostFilter
@@ -7,6 +10,8 @@ from kit.views import FilteredAPIView
 
 from . import serializers as z
 from . import services as s
+
+project_logger = logging.getLogger(settings.PROJECT_LOGGER)
 
 
 class PostsList(FilteredAPIView):
@@ -18,6 +23,8 @@ class PostsList(FilteredAPIView):
     service: s.BlogPostService = inject.attr(s.BlogPostService)
 
     def get(self, request):
+        # just for testing logging
+        project_logger.info("posts_list request: %r", request)
         return get_paginated_response(
             pagination_class=LimitOffsetPagination,
             serializer_class=z.PostsListSerializer,

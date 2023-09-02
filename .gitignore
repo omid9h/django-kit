@@ -160,3 +160,7 @@ cython_debug/
 #.idea/
 
 static/media
+static/admin
+static/rest_framework
+static/staticfiles.json
+log/

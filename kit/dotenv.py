@@ -4,6 +4,7 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class DotEnv(BaseSettings):
+    debug_mode: bool
     secret_key: str
 
     db_host: str
